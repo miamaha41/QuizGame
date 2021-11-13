@@ -1,0 +1,101 @@
+* {
+    box-sizing: inherit;
+}
+
+.app {
+    background-image: url("../img/img.jpg");
+    background-repeat: repeat;
+    background-size: fixed;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    /* font-weight: bold; */
+}
+
+.contain {
+    margin: 10%;
+    width: 80%;
+    height: 60%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    overflow: hidden;
+}
+
+.header {
+    color: red;
+    font-size: 50px;
+    text-transform: uppercase;
+    text-shadow: 3px 3px black;
+}
+
+.header-title {
+    margin-top: 0;
+    color: #fff;
+    font-size: 30px;
+    text-shadow: 2px 2px red;
+}
+
+.btnStart {
+    font-size: 30px;
+    width: 25%;
+    border-radius: 10px;
+    background-color: red;
+    color: #fff;
+    padding: 10px;
+}
+
+.btnStart:hover {
+    background-color: yellow;
+    color: green;
+    cursor: pointer;
+}
+
+
+/* .question-contain {
+    margin: 10%;
+    width: 50%;
+    background-color: #fff;
+    display: inline-flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.question-count {
+    font-size: 30px;
+}
+
+.question-tittle {
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
+.question-answer-list {
+    width: 30%;
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+}
+
+.answer-item {
+    border: solid 1px;
+    font-size: 20px;
+    margin: 5%;
+    min-width: 80px;
+}
+
+.endgame {
+    width: 60%;
+    flex-direction: row;
+    display: flex;
+}
+
+.btn {
+    background-color: red;
+    border-radius: 10px;
+    font-size: 20px;
+    width: 15%;
+    min-width: 80px;
+} */

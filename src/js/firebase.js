@@ -1,0 +1,52 @@
+// db.collection("Quiz1").get()
+//     .then(
+//         snapshot => {
+//             snapshot.docs.forEach(doc =>
+//                 doc.data()
+//             )
+//             console.log(snapshot.size);
+//         }
+//     );
+
+
+import { renderQuestion, shuffArray } from "./ui.js"
+export async function getDataRealtime() {
+    let snapshot = await db.collection("Quiz1").onSnapshot(
+        sn => {
+            let changes = sn.docChanges();
+            changes.forEach(
+                change => {
+                    render(change.doc)
+                    console.log(change.type)
+                });
+        }
+    );
+}
+
+export const getQuestion = async function() {
+    let snapshot = await db.collection("Quiz1").get();
+    let count = snapshot.size
+    let i = 1;
+    let newArray = shuffArray(snapshot.docs);
+    newArray.forEach(doc => {
+        renderQuestion(doc, i, count)
+        i++;
+    });
+    // console.log(snapshot.docs)
+}
+export async function insertQuestion(ques, incorrect_ans, correct_ans) {
+    await db.collection("Quiz1").add({
+        question: ques,
+        incorrect_answers: incorrect_ans,
+        correct_answer: correct_ans
+    });
+}
+// insertQuestion("What is the most common type of pitch thrown by pitchers in baseball?", '["Slowball", "Screwball", "Palmball"]', "Fastball");
+export async function deleteQuestion(id) {
+    await db.collection("Quiz1").doc(id).delete();
+}
+async function updateQuestion(id, change) {
+    await db.collection("Quiz1").doc(id).update({
+        change: change
+    });
+}
