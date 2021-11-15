@@ -1,58 +1,133 @@
-.question-contain {
-    margin: 10%;
+.page-wrapper {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.page-wrapper .question-contain {
+  margin: 10%;
+  width: 80%;
+  height: 60%;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 14px 28px rgba(216, 6, 76, 0.6), 0 10px 10px rgba(0, 0, 0, 0.55);
+          box-shadow: 0 14px 28px rgba(216, 6, 76, 0.6), 0 10px 10px rgba(0, 0, 0, 0.55);
+}
+
+@media screen and (max-width: 768px) {
+  .page-wrapper .question-contain {
+    width: 95%;
+    height: 80%;
+  }
+}
+
+.page-wrapper .question-contain .question-count {
+  font-size: 30px;
+}
+
+.page-wrapper .question-contain .question-tittle {
+  font-size: 30px;
+  margin-bottom: 0;
+}
+
+.page-wrapper .question-contain .question-answer-list {
+  margin: 0;
+  width: 30%;
+  list-style: none;
+  padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .page-wrapper .question-contain .question-answer-list {
     width: 80%;
-    height: 60%;
-    display: inline-flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-around;
-    text-align: center;
-    background-color: #fff;
+  }
 }
 
-.question-count {
-    font-size: 30px;
+.page-wrapper .question-contain .question-answer-list .answer-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
-.question-tittle {
-    font-size: 30px;
-    margin-bottom: 0;
+.page-wrapper .question-contain .question-answer-list .answer-item:not(:first-child) {
+  margin-top: 10px;
 }
 
-.question-answer-list {
-    margin: 0;
-    width: 30%;
-    list-style: none;
-    padding: 0;
+.page-wrapper .question-contain .question-answer-list .answer-item input:not([input=radio]) {
+  font-size: 1.2em;
+  width: 100%;
+  text-align: center;
 }
 
-.answer-item {
-    /* padding: 15%; */
-    border: solid 1px;
-    font-size: 20px;
-    margin: 5%;
-    min-width: 80px;
+.page-wrapper .question-contain .question-answer-list .answer-item input[type="radio"] {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
 }
 
-.answer-item:hover {
-    cursor: pointer;
+.page-wrapper .question-contain .endgame {
+  width: 80%;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
-.endgame {
-    width: 80%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+.page-wrapper .question-contain .btn {
+  border-radius: 10px;
+  font-size: 1.3em;
+  min-width: 15px;
+  padding: 5px 10px;
+  -webkit-box-shadow: 5px 5px 0 #646464;
+          box-shadow: 5px 5px 0 #646464;
+  border-top: 1px solid gray;
+  border-left: 1px solid gray;
 }
 
-.btn {
-    background-color: red;
-    border-radius: 10px;
-    font-size: 20px;
-    width: 15%;
-    min-width: 80px;
+.page-wrapper .question-contain .btn:hover {
+  cursor: pointer;
 }
 
-.btn:hover {
-    cursor: pointer;
+.page-wrapper .question-contain .btn:active {
+  -webkit-box-shadow: 2px 2px 0 #646464;
+          box-shadow: 2px 2px 0 #646464;
+  -webkit-transform: translate(3px, 3px);
+          transform: translate(3px, 3px);
 }
+
+.page-wrapper .question-contain .red {
+  background-color: red;
+}
+
+.page-wrapper .question-contain .green {
+  background-color: lightgreen;
+}
+/*# sourceMappingURL=template.css.map */

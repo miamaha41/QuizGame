@@ -3,6 +3,7 @@ import Quiz from "./component.js"
 const btnStart = document.querySelector('.btnStart');
 const containStart = document.querySelector('.contain');
 const app = document.querySelector('.app');
+// localStorage.setItem('countCorrectAnswer', 0);
 class QuizGame {
     totalQuestion;
     countCorrectAnswer;
@@ -15,7 +16,7 @@ class QuizGame {
 btnStart.addEventListener('click',
     () => {
         window.customElements.define("quiz-questions", Quiz);
-        firebase.getQuestion();
+        firebase.getQuiz();
         containStart.style.display = 'none';
     }
 )

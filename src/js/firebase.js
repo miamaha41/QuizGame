@@ -23,13 +23,13 @@ export async function getDataRealtime() {
     );
 }
 
-export const getQuestion = async function() {
+export const getQuiz = async function() {
     let snapshot = await db.collection("Quiz1").get();
-    let count = snapshot.size
+    let countTotal = snapshot.size
     let i = 1;
     let newArray = shuffArray(snapshot.docs);
     newArray.forEach(doc => {
-        renderQuestion(doc, i, count)
+        renderQuestion(doc, i, countTotal)
         i++;
     });
     // console.log(snapshot.docs)
@@ -49,4 +49,9 @@ async function updateQuestion(id, change) {
     await db.collection("Quiz1").doc(id).update({
         change: change
     });
+}
+export async function getAnswerCorrect(id) {
+    let doc = await db.collection("Quiz1").doc(id).get();
+    let answerData = doc.data().correct_answer;
+    return answerData;
 }
