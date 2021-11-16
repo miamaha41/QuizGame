@@ -16,6 +16,7 @@
   margin: 10%;
   width: 80%;
   height: 60%;
+  padding: 10px;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -101,6 +102,23 @@
       justify-content: space-around;
 }
 
+.page-wrapper .question-contain .update {
+  width: 60%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+@media screen and (max-width: 768px) {
+  .page-wrapper .question-contain .update {
+    width: 100%;
+  }
+}
+
 .page-wrapper .question-contain .btn {
   border-radius: 10px;
   font-size: 1.3em;
@@ -121,6 +139,10 @@
           box-shadow: 2px 2px 0 #646464;
   -webkit-transform: translate(3px, 3px);
           transform: translate(3px, 3px);
+}
+
+.page-wrapper .question-contain .yellow {
+  background-color: yellow;
 }
 
 .page-wrapper .question-contain .red {

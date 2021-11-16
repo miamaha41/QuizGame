@@ -8,6 +8,7 @@
         margin: 10%;
         width: 80%;
         height: 60%;
+        padding: 10px;
         display: inline-flex;
         align-items: center;
         flex-direction: column;
@@ -62,6 +63,16 @@
             flex-direction: row;
             justify-content: space-around;
         }
+        .update {
+            width: 60%;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-around;
+            @media screen and (max-width: 768px) {
+                width: 100%;
+            }
+        }
         .btn {
             border-radius: 10px;
             font-size: 1.3em;
@@ -77,6 +88,9 @@
                 box-shadow: 2px 2px 0 rgba(100, 100, 100, 1);
                 transform: translate(3px, 3px);
             }
+        }
+        .yellow {
+            background-color: yellow;
         }
         .red {
             background-color: red;
