@@ -130,4 +130,27 @@
 .page-wrapper .question-contain .green {
   background-color: lightgreen;
 }
+
+.animate {
+  -webkit-animation: 3s drop;
+          animation: 3s drop;
+}
+
+@-webkit-keyframes drop {
+  0% {
+    top: -150px;
+  }
+  100% {
+    top: 50%;
+  }
+}
+
+@keyframes drop {
+  0% {
+    top: -150px;
+  }
+  100% {
+    top: 50%;
+  }
+}
 /*# sourceMappingURL=template.css.map */

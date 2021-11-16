@@ -1,6 +1,5 @@
 import { getAnswerCorrect } from "./firebase.js"
 class Quiz extends HTMLElement {
-    correctAnswer = 0;
     static get observedAttributes() {
         return ['index', 'count', 'idQuestion', 'title', 'answers', 'answer1', 'answer2', 'answer3', 'answer4'];
     }
@@ -11,16 +10,15 @@ class Quiz extends HTMLElement {
         shadow.appendChild(template.content.cloneNode(true));
     }
     render(nameAttribute) {
-        console.log(nameAttribute);
         switch (nameAttribute) {
             case "index":
             case "count":
                 const index = this.shadowRoot.querySelector(".question-count");
-                index.innerText = this.getCount();
+                index.innerText = `Quiz: ${this.getAttribute('index')}/${this.getAttribute('count')}`;
                 break;
             case "title":
                 const title = this.shadowRoot.querySelector(".question-tittle");
-                title.innerText = this.getTitle();
+                title.innerText = this.getAttribute('title');
                 break;
             case "answers":
                 /**
@@ -32,65 +30,62 @@ class Quiz extends HTMLElement {
                  * @type HTMLCollectionOf.<HTMLInputElement>
                  */
                 const inputRadios = this.shadowRoot.querySelectorAll('input[type=radio]');
-
                 answers.forEach((ans, index) => {
                     const label = this.shadowRoot.querySelector(inputTags[index]);
                     label.value = ans;
                     inputRadios[index].value = ans;
                 });
                 break;
-
         }
     }
-
+    checkRadio() {
+        /**
+         * @type Array.<Nodelist>
+         */
+        const checkRadios = this.shadowRoot.querySelectorAll('input[type="radio"]');
+        if (Array.from(checkRadios).every(checkRadio => !checkRadio.checked)) {
+            alert('Please select an answer.')
+            return false;
+        }
+        return true;
+    }
     connectedCallback() {
         const btnNext = this.shadowRoot.querySelector('.btnNext')
         const btnPrev = this.shadowRoot.querySelector('.btnPrev')
         const btnClose = this.shadowRoot.querySelector('.btnClose')
         const collectionQuiz = document.getElementsByTagName('quiz-questions')
         btnNext.addEventListener("click", () => {
-            this.style.display = 'none';
-            this.checkRadio();
-            if (this == collectionQuiz[collectionQuiz.length - 1]) {
-                let check = confirm('This is last question. Do you want to end this game ?');
-                if (check) {
-                    this.close(collectionQuiz);
+            if (this.checkRadio()) {
+                this.style.display = 'none';
+                if (this == collectionQuiz[collectionQuiz.length - 1]) {
+                    let check = confirm('This is last question. Do you want to end this game ?');
+                    if (check) {
+                        this.close(collectionQuiz);
+                    }
                 }
             }
         })
         btnPrev.addEventListener("click", () => {
-            this.previousElementSibling.style.display = '';
-            this.checkRadio();
-            if (this == collectionQuiz[0]) {
-                alert('This is first question. (No previous question)')
+            if (this.checkRadio()) {
+                if (this == collectionQuiz[0]) {
+                    alert('This is first question. (No previous question)')
+                }
+                this.previousSibling.style.display = '';
             }
         })
         btnClose.addEventListener("click", () => {
-            const check = confirm('Are you sure you want to close?');
-            this.checkRadio();
-            if (check) {
-                this.close(collectionQuiz);
+            if (this.checkRadio()) {
+                const check = confirm('Are you sure you want to close?');
+                if (check) {
+                    this.close(collectionQuiz);
+                }
             }
         })
     }
     attributeChangedCallback(name, oldValue, newValue) {
         this.render(name);
     }
-    disconnectedCallback() {
-
-    }
-    getCount() {
-        return `Quiz: ${this.getAttribute('index')}/${this.getAttribute('count')}`;
-    }
-    getTitle() {
-        return this.getAttribute('title');
-    }
-    getIdQuestion() {
-        return this.getAttribute('idQuestion');
-    }
-    getAnswers() {
-        return this.getAttribute("answers");
-    }
+    disconnectedCallback() {}
     checkAnswer() {
         const answerUser = this.shadowRoot.querySelector('input[type="radio"]:checked');
         const idQuestion = this.getAttribute('idQuestion');
@@ -124,19 +119,14 @@ class Quiz extends HTMLElement {
                     total += item ? 1 : 0;
                 });
                 localStorage.setItem("total", total);
-                alert(`You have ${total} correct answer(s).`)
+                alert(`You have ${total}/${this.getAttribute('count')} correct answer(s).`)
             });
         }
         /**
          * Check if no answer is selected 
          * @return {Boolean} *true* if no answer is selected
          */
-    checkRadio() {
-        const check = this.shadowRoot.querySelector('input[type="radio"]');
-        if (!check.checked) {
-            alert('Please select a answer');
-        }
-    }
+
 
     /**
      * Calculate the sum of 2 numbers   
@@ -147,6 +137,6 @@ class Quiz extends HTMLElement {
      * @returns {Number} sum of 2 number
      * @author Yen 11.11.2021 <abc@xyz.com>
      */
-    sum(a, b, options = {}) {}
+    // sum(a, b, options = {}) {}
 }
 export default Quiz;

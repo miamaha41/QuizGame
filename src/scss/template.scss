@@ -86,3 +86,16 @@
         }
     }
 }
+
+.animate {
+    animation: 3s drop;
+}
+
+@keyframes drop {
+    0% {
+        top: -150px;
+    }
+    100% {
+        top: 50%;
+    }
+}

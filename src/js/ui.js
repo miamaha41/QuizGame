@@ -8,13 +8,7 @@ export function renderQuestion(doc, index, countTotalQuestion) {
     quiz.setAttribute('count', countTotalQuestion);
     quiz.setAttribute('title', data.question);
     const answerArray = shuffArray([...data.incorrect_answers, data.correct_answer]);
-    // quiz.setAttribute('answers', [...answerArray]);
-    // console.log(answerArray);
     quiz.setAttribute('answers', JSON.stringify(answerArray));
-    // quiz.setAttribute('answer1', answerArray[0]);
-    // quiz.setAttribute('answer2', answerArray[1]);
-    // quiz.setAttribute('answer3', answerArray[2]);
-    // quiz.setAttribute('answer4', answerArray[3]);
 }
 export function shuffArray(array) {
     let j, tmp;
@@ -25,9 +19,4 @@ export function shuffArray(array) {
         array[j] = tmp;
     }
     return array;
-}
-export function checkAnswer(answerUser, data, countCorrectAnswer) {
-    if (answerUser === data) {
-        countCorrectAnswer++;
-    }
 }
