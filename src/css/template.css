@@ -13,10 +13,13 @@
 }
 
 .page-wrapper .question-contain {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   margin: 10%;
   width: 80%;
   height: 60%;
-  padding: 10px;
+  padding: 15px;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -48,8 +51,34 @@
 }
 
 .page-wrapper .question-contain .question-tittle {
-  font-size: 30px;
+  font-size: 26px;
   margin-bottom: 0;
+  width: 100%;
+  text-align: center;
+  outline: none;
+}
+
+.page-wrapper .question-contain textarea {
+  border-style: hidden;
+}
+
+@media screen and (max-width: 768px) {
+  .page-wrapper .question-contain textarea {
+    width: 80%;
+    font-size: 25px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .page-wrapper .question-contain textarea {
+    width: 80%;
+    font-size: 25px;
+  }
+}
+
+.page-wrapper .question-contain input {
+  border-style: hidden;
+  background-color: #eee;
 }
 
 .page-wrapper .question-contain .question-answer-list {
@@ -66,6 +95,7 @@
 }
 
 .page-wrapper .question-contain .question-answer-list .answer-item {
+  margin-top: 6px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -79,6 +109,12 @@
   font-size: 1.2em;
   width: 100%;
   text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  .page-wrapper .question-contain .question-answer-list .answer-item input:not([input=radio]) {
+    width: 100%;
+  }
 }
 
 .page-wrapper .question-contain .question-answer-list .answer-item input[type="radio"] {
@@ -120,8 +156,8 @@
 }
 
 .page-wrapper .question-contain .btn {
-  border-radius: 10px;
   font-size: 1.3em;
+  border-radius: 10px;
   min-width: 15px;
   padding: 5px 10px;
   -webkit-box-shadow: 5px 5px 0 #646464;

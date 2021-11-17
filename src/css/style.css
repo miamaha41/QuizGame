@@ -92,10 +92,19 @@ body {
     display: flex;
 }
 
-.btn {
+.btnStart {
     background-color: red;
-    border-radius: 10px;
     font-size: 20px;
+    min-width: 15px;
+    padding: 5px 10px;
+    box-shadow: 5px 5px 0 rgba(100, 100, 100, 1);
+    border-top: 1px solid gray;
+    border-left: 1px solid gray;
     width: 15%;
     min-width: 80px;
+}
+
+.btnStart:active {
+    box-shadow: 2px 2px 0 rgba(100, 100, 100, 1);
+    transform: translate(3px, 3px);
 }

@@ -5,10 +5,11 @@
     justify-content: center;
     align-items: center;
     .question-contain {
+        display: flex;
         margin: 10%;
         width: 80%;
         height: 60%;
-        padding: 10px;
+        padding: 15px;
         display: inline-flex;
         align-items: center;
         flex-direction: column;
@@ -25,8 +26,30 @@
             font-size: 30px;
         }
         .question-tittle {
-            font-size: 30px;
+            font-size: 26px;
             margin-bottom: 0;
+            width: 100%;
+            text-align: center;
+            outline: none;
+            // @media screen and (max-width: 768px) {
+            //     width: 95%;
+            //     height: 80%;
+            // }
+        }
+        textarea {
+            @media screen and (max-width: 768px) {
+                width: 80%;
+                font-size: 25px;
+            }
+            @media screen and (max-width: 600px) {
+                width: 80%;
+                font-size: 25px;
+            }
+            border-style: hidden;
+        }
+        input {
+            border-style: hidden;
+            background-color: #eee;
         }
         .question-answer-list {
             margin: 0;
@@ -37,6 +60,7 @@
                 width: 80%;
             }
             .answer-item {
+                margin-top: 6px;
                 display: flex;
                 &:not(:first-child) {
                     margin-top: 10px;
@@ -46,6 +70,9 @@
                         font-size: 1.2em;
                         width: 100%;
                         text-align: center;
+                        @media screen and (max-width: 600px) {
+                            width: 100%;
+                        }
                     }
                     &[type="radio"] {
                         cursor: pointer;
@@ -74,8 +101,8 @@
             }
         }
         .btn {
-            border-radius: 10px;
             font-size: 1.3em;
+            border-radius: 10px;
             min-width: 15px;
             padding: 5px 10px;
             box-shadow: 5px 5px 0 rgba(100, 100, 100, 1);

@@ -45,9 +45,11 @@ export async function insertQuestion(ques, incorrect_ans, correct_ans) {
 export async function deleteQuestion(id) {
     await db.collection("Quiz1").doc(id).delete();
 }
-async function updateQuestion(id, change) {
+export async function updateQuestion(id, ques, correct_ans, incorrect_ans) {
     await db.collection("Quiz1").doc(id).update({
-        change: change
+        question: ques,
+        incorrect_answers: incorrect_ans,
+        correct_answer: correct_ans
     });
 }
 export async function getAnswerCorrect(id) {
