@@ -129,7 +129,7 @@ class Quiz extends HTMLElement {
             }
         })
         btnClose.addEventListener("click", () => {
-            if (this.checkRadio()) {
+            if (this.checkRadio() && this.checkAllQuesSelect()) {
                 const check = confirm('Are you sure to close this game?');
                 if (check) {
                     this.close(collectionQuiz);
@@ -141,7 +141,17 @@ class Quiz extends HTMLElement {
         this.render(name);
     }
     disconnectedCallback() {}
-
+    checkAllQuesSelect() {
+        const collectionQuiz = document.getElementsByTagName('quiz-questions');
+        Array.from(collectionQuiz).every(ques => {
+            const checkRadios = ques.querySelectorAll('input[type="radio"]');
+            if (Array.from(checkRadios).every(checkRadio => !checkRadio.checked)) {
+                alert('Please select all question.')
+                return false;
+            }
+            return true;
+        })
+    }
     checkAnswer() {
         const answerUser = this.shadowRoot.querySelector('input[type="radio"]:checked');
         const idQuestion = this.getAttribute('idQuestion');
@@ -176,7 +186,9 @@ class Quiz extends HTMLElement {
             });
             localStorage.setItem("total", total);
             alert(`You have ${total}/${this.getAttribute('count')} correct answer(s).`)
+            window.location.reload();
         });
+
     }
 
     /**

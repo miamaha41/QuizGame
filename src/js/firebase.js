@@ -57,3 +57,6 @@ export async function getAnswerCorrect(id) {
     let answerData = doc.data().correct_answer;
     return answerData;
 }
+export async function getUser(uid) {
+
+}
