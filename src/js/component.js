@@ -101,8 +101,8 @@ class Quiz extends HTMLElement {
             const idQuestion = this.getAttribute('idQuestion');
             if (check) {
                 deleteQuestion(idQuestion).then(alert('Delete successfully'));
+                Array.from(collectionQuiz).forEach(question => question.remove());
                 getQuiz().then();
-                this.style.display = 'none';
                 return;
             }
             return;

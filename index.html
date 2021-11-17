@@ -14,18 +14,24 @@
 
 <body>
     <div class="app">
+        <!-- <form class="login">
+            <label for="username" id="username" required>Enter your username: </label>
+            <input type="text" id="username">
+            <label for="password" id="password">Enter your password: </label>
+            <input type="text" class="password" required>
+            <div class="btnLogin"></div>
+        </form> -->
         <section class="contain">
-            <span class="header">Quizzes Game</span>
-            <span class="header-title">You think you're a sport nerd? Try to beat these quizzes</span>
+            <span class="header">Quiz Game</span>
+            <span class="header-title">Try to beat these quizzes</span>
             <div class="btnStart">Start</div>
         </section>
-
         <template class="template">
             <link rel="stylesheet" href="src/css/template.css">
             <div class="animate page-wrapper">
                 <div class="question-contain">
                     <div class="question-count"></div>
-                    <textarea class="question-tittle" cols="50" rows="5" ></textarea>
+                    <textarea class="question-tittle" cols="50" rows="5"></textarea>
                     <form class="question-answer-list">
                         <div class="answer-item">
                             <input type="radio" id="answer1" name="answer" value="">
@@ -37,11 +43,11 @@
                         </div>
                         <div class="answer-item">
                             <input type="radio" id="answer3" name="answer" value="">
-                            <input for="answer3" class="answer3">              
+                            <input for="answer3" class="answer3" >               
                         </div>
                         <div class="answer-item">
                             <input type="radio" id="answer4" name="answer" value="">
-                            <input for="answer4" class="answer4" >
+                            <input for="answer4" class="answer4"  >
                         </div>
                     </form>
                     <div class="endgame">

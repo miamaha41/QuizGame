@@ -47,52 +47,8 @@ body {
 }
 
 .btnStart {
-    font-size: 30px;
-    width: 25%;
-    border-radius: 10px;
-    background-color: red;
     color: #fff;
-    padding: 10px;
-}
-
-.btnStart:hover {
-    background-color: yellow;
-    color: green;
-    cursor: pointer;
-}
-
-.question-contain {
-    margin: 10%;
-    width: 50%;
-    background-color: #fff;
-    display: inline-flex;
-    align-items: center;
-    flex-direction: column;
-}
-
-.question-count {
-    font-size: 30px;
-}
-
-.question-tittle {
-    font-size: 20px;
-    margin-bottom: 0;
-}
-
-.question-answer-list {
-    width: 30%;
-    list-style: none;
-    padding: 0;
-    margin-top: 0;
-}
-
-.endgame {
-    width: 60%;
-    flex-direction: row;
-    display: flex;
-}
-
-.btnStart {
+    border-radius: 10px;
     background-color: red;
     font-size: 20px;
     min-width: 15px;
@@ -102,6 +58,7 @@ body {
     border-left: 1px solid gray;
     width: 15%;
     min-width: 80px;
+    cursor: pointer;
 }
 
 .btnStart:active {
