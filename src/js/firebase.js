@@ -34,11 +34,11 @@ export const getQuiz = async function() {
     });
     // console.log(snapshot.docs)
 }
-export async function insertQuestion(ques, incorrect_ans, correct_ans) {
+export async function insertQuestion(ques, correct_ans, incorrect_ans) {
     await db.collection("Quiz1").add({
         question: ques,
-        incorrect_answers: incorrect_ans,
-        correct_answer: correct_ans
+        correct_answer: correct_ans,
+        incorrect_answers: incorrect_ans
     });
 }
 // insertQuestion("What is the most common type of pitch thrown by pitchers in baseball?", '["Slowball", "Screwball", "Palmball"]', "Fastball");
@@ -57,6 +57,12 @@ export async function getAnswerCorrect(id) {
     let answerData = doc.data().correct_answer;
     return answerData;
 }
-export async function getUser(uid) {
-
+export function getUser() {
+    return db.collection("Account")
+        .get().then((doc) => {
+            if (doc.exists) {
+                return doc.data();
+            }
+            return {}
+        })
 }

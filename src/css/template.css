@@ -48,6 +48,7 @@
 
 .page-wrapper .question-contain .question-count {
   font-size: 30px;
+  margin: 10px;
 }
 
 .page-wrapper .question-contain .question-tittle {
@@ -152,6 +153,34 @@
 @media screen and (max-width: 768px) {
   .page-wrapper .question-contain .update {
     width: 100%;
+  }
+}
+
+.page-wrapper .question-contain .endAdmin {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.page-wrapper .question-contain .endAdmin .btnClear {
+  margin-right: 315px;
+}
+
+@media screen and (max-width: 768px) {
+  .page-wrapper .question-contain .endAdmin .btnClear {
+    width: 60%;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .page-wrapper .question-contain .endAdmin .btnLogout {
+    width: 70%;
+    margin: 0;
+    margin-left: 50px;
   }
 }
 

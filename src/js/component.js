@@ -48,31 +48,45 @@ class Quiz extends HTMLElement {
          */
         const checkRadios = this.shadowRoot.querySelectorAll('input[type="radio"]');
         if (Array.from(checkRadios).every(checkRadio => !checkRadio.checked)) {
-            alert('Please select an answer.')
+            alert('Please select an answer!')
             return false;
         }
         return true;
     }
-    editQuestion() {
+    checkAllInput() {
+        const inputAnswers = this.shadowRoot.querySelectorAll('input:not([type="radio"])');
+        const txt = this.shadowRoot.querySelector('.question-tittle').value.trim();
+        if (txt === "") {
+            alert("Please enter question' title!")
+            return false;
+        }
+        console.log(inputAnswers)
+        Array.from(inputAnswers).some((answer) => {
+            if (answer.value.trim() === "") {
+                alert("Please enter all answers!")
+                return true;
+            }
+            return false;
+        })
+        return false;
+    }
+    getQuestionUer() {
         const inputTags = [".answer1", ".answer2", ".answer3", ".answer4"];
         const inputRadios = this.shadowRoot.querySelectorAll('input[type="radio"]');
         const inputAnswers = this.shadowRoot.querySelectorAll('input:not([type="radio"])');
-        const txt = this.shadowRoot.querySelector('.question-tittle').value;
-        const idQuestion = this.getAttribute('idQuestion');
+        const txt = this.shadowRoot.querySelector('.question-tittle').value.trim();
         let correctAnsIndex = Array.from(inputRadios).findIndex(radio => radio.checked);
         if (correctAnsIndex < 0) {
             return;
         }
-        let correctAns = this.shadowRoot.querySelector(inputTags[correctAnsIndex]);
+        let correctAns = this.shadowRoot.querySelector(inputTags[correctAnsIndex]).value.trim();
         let otherAnswers = []
         Array.from(inputAnswers).map((answer, index) => {
             if (index != correctAnsIndex) {
-                otherAnswers.push(answer.value);
+                otherAnswers.push(answer.value.trim());
             }
         })
-        updateQuestion(idQuestion, txt, correctAns.value, otherAnswers).then(() => {
-            alert('Edit successfully');
-        }).catch(error => console.log(error))
+        return { txt, correctAns, otherAnswers };
     }
     connectedCallback() {
         const btnNext = this.shadowRoot.querySelector('.btnNext');
@@ -82,15 +96,38 @@ class Quiz extends HTMLElement {
         const btnDel = this.shadowRoot.querySelector('.btnDel');
         const btnEdit = this.shadowRoot.querySelector('.btnEdit');
         const btnAdd = this.shadowRoot.querySelector('.btnAdd');
+        const btnClear = this.shadowRoot.querySelector('.btnClear');
+        btnClear.addEventListener('click', () => {
+            this.clear();
+        })
         btnAdd.addEventListener('click', () => {
-            document.createElement("quiz-questions", Quiz)
-            this.style.display = 'none';
+            if (this.checkRadio() && this.checkAllInput()) {
+                let check = confirm('Are you sure to add new question!')
+                if (check) {
+                    const txt = this.getQuestionUer().txt;
+                    const correctAns = this.getQuestionUer().correctAns;
+                    const otherAnswers = this.getQuestionUer().otherAnswers;
+                    insertQuestion(txt, correctAns, otherAnswers).then(() => {
+                        alert('Add successfully');
+                    }).catch(error => console.log(error))
+                    Array.from(collectionQuiz).forEach(question => question.remove());
+                    getQuiz().then();
+                    return;
+                }
+                return;
+            };
         })
         btnEdit.addEventListener('click', () => {
-            if (this.checkRadio()) {
+            if (this.checkRadio() && this.checkAllInput()) {
                 let check = confirm('Are you sure to update this question!')
                 if (check) {
-                    this.editQuestion();
+                    const idQuestion = this.getAttribute('idQuestion');
+                    const txt = this.getQuestionUer().txt;
+                    const correctAns = this.getQuestionUer().correctAns;
+                    const otherAnswers = this.getQuestionUer().otherAnswers;
+                    updateQuestion(idQuestion, txt, correctAns, otherAnswers).then(() => {
+                        alert('Edit successfully');
+                    }).catch(error => console.log(error))
                     return;
                 }
                 return;
@@ -100,7 +137,10 @@ class Quiz extends HTMLElement {
             let check = confirm('Are you sure to delete this question! ')
             const idQuestion = this.getAttribute('idQuestion');
             if (check) {
-                deleteQuestion(idQuestion).then(alert('Delete successfully'));
+                deleteQuestion(idQuestion).then(() => {
+                    alert('Delete successfully')
+                    return;
+                }).catch(error => console.log(error));
                 Array.from(collectionQuiz).forEach(question => question.remove());
                 getQuiz().then();
                 return;
@@ -121,37 +161,39 @@ class Quiz extends HTMLElement {
             }
         })
         btnPrev.addEventListener("click", () => {
-            if (this.checkRadio()) {
-                if (this == collectionQuiz[0]) {
-                    alert('This is first question. (No previous question)')
+                if (this.checkRadio()) {
+                    if (this == collectionQuiz[0]) {
+                        alert('This is first question. (No previous question)')
+                    }
+                    this.previousSibling.style.display = '';
                 }
-                this.previousSibling.style.display = '';
-            }
-        })
-        btnClose.addEventListener("click", () => {
-            if (this.checkRadio() && this.checkAllQuesSelect()) {
-                const check = confirm('Are you sure to close this game?');
-                if (check) {
-                    this.close(collectionQuiz);
-                }
-            }
-        })
+            })
+            // btnClose.addEventListener("click", () => {
+            //     if (this.checkRadio()) {
+            //         const check = confirm('Are you sure to close this game?');
+            //         if (check) {
+            //             this.close(collectionQuiz);
+            //         }
+            //     }
+            // })
     }
     attributeChangedCallback(name, oldValue, newValue) {
         this.render(name);
     }
-    disconnectedCallback() {}
-    checkAllQuesSelect() {
-        const collectionQuiz = document.getElementsByTagName('quiz-questions');
-        Array.from(collectionQuiz).every(ques => {
-            const checkRadios = ques.querySelectorAll('input[type="radio"]');
-            if (Array.from(checkRadios).every(checkRadio => !checkRadio.checked)) {
-                alert('Please select all question.')
-                return false;
-            }
-            return true;
-        })
-    }
+    disconnectedCallback() {
+            // getQuiz().then();
+        }
+        // checkAllQuesSelect() {
+        //     const collectionQuiz = document.getElementsByTagName('quiz-questions');
+        //     for (let ques of collectionQuiz) {
+        //         if (ques.checkRadio()) {
+        //             alert("Please select all question!")
+        //             return false;
+        //         }
+        //         return true;
+        //     }
+        //     return true;
+        // }
     checkAnswer() {
         const answerUser = this.shadowRoot.querySelector('input[type="radio"]:checked');
         const idQuestion = this.getAttribute('idQuestion');
@@ -190,16 +232,32 @@ class Quiz extends HTMLElement {
         });
 
     }
-
-    /**
-     * Calculate the sum of 2 numbers   
-     * @param {Number} a first number
-     * @param {Number} b second number
-     * @param {Object} options Options
-     * @param {String | Number} options.a 
-     * @returns {Number} sum of 2 number
-     * @author Hai Yen 11.11.2021 <miamaha41@gmail.com>
-     */
-    // sum(a, b, options = {}) {}
+    clear() {
+            let check = confirm('Are you sure to clear for adding a new question?');
+            if (check) {
+                const inputAnswers = this.shadowRoot.querySelectorAll('input:not([type="radio"])');
+                const txt = this.shadowRoot.querySelector('.question-tittle');
+                const count = this.shadowRoot.querySelector('.question-count');
+                count.innerText = "Creat a new question"
+                txt.value = "";
+                txt.setAttribute('placeholder', "Enter question's title");
+                Array.from(inputAnswers).map((answer) => {
+                    answer.value = "";
+                    answer.setAttribute('placeholder', 'Enter an answer');
+                })
+                return;
+            }
+            return;
+        }
+        /**
+         * Calculate the sum of 2 numbers   
+         * @param {Number} a first number
+         * @param {Number} b second number
+         * @param {Object} options Options
+         * @param {String | Number} options.a 
+         * @returns {Number} sum of 2 number
+         * @author Hai Yen 11.11.2021 <miamaha41@gmail.com>
+         */
+        // sum(a, b, options = {}) {}
 }
 export default Quiz;

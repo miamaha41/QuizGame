@@ -24,6 +24,7 @@
         }
         .question-count {
             font-size: 30px;
+            margin: 10px;
         }
         .question-tittle {
             font-size: 26px;
@@ -98,6 +99,24 @@
             justify-content: space-around;
             @media screen and (max-width: 768px) {
                 width: 100%;
+            }
+        }
+        .endAdmin {
+            display: flex;
+            justify-content: space-between;
+            .btnClear {
+                margin-right: 315px;
+                @media screen and (max-width: 768px) {
+                    width: 60%;
+                    margin: 0;
+                }
+            }
+            .btnLogout {
+                @media screen and (max-width: 768px) {
+                    width: 70%;
+                    margin: 0;
+                    margin-left: 50px;
+                }
             }
         }
         .btn {

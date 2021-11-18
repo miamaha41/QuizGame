@@ -9,7 +9,6 @@ export function renderQuestion(doc, index, countTotalQuestion) {
     quiz.setAttribute('title', data.question);
     const answerArray = shuffArray([...data.incorrect_answers, data.correct_answer]);
     quiz.setAttribute('answers', JSON.stringify(answerArray));
-
 }
 export function shuffArray(array) {
     let j, tmp;
