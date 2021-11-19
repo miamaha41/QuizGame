@@ -10,6 +10,7 @@ class Quiz extends HTMLElement {
         const shadow = this.attachShadow({ mode: 'open' });
         shadow.appendChild(template.content.cloneNode(true));
         const local = localStorage.getItem('login');
+        const btnClose = this.shadowRoot.querySelector('.btnClose');
         const btnDel = this.shadowRoot.querySelector('.btnDel');
         const btnEdit = this.shadowRoot.querySelector('.btnEdit');
         const btnAdd = this.shadowRoot.querySelector('.btnAdd');
@@ -27,12 +28,17 @@ class Quiz extends HTMLElement {
             btnLogout.style.visibility = 'hidden';
         } else {
             txt.disabled = false;
-            Array.from(inputAnswers).forEach((answer) => answer.disabled = false);
+            txt.style.border = '1px solid black';
+            Array.from(inputAnswers).forEach((answer) => {
+                answer.disabled = false;
+                answer.style.border = '1px solid';
+            });
             btnClear.style.visibility = 'visible';
             btnAdd.style.visibility = 'visible';
             btnEdit.style.visibility = 'visible';
             btnDel.style.visibility = 'visible';
             btnLogout.style.visibility = 'visible';
+            btnClose.style.visibility = 'hidden';
         }
     }
     render(nameAttribute) {
@@ -121,8 +127,22 @@ class Quiz extends HTMLElement {
         const btnEdit = this.shadowRoot.querySelector('.btnEdit');
         const btnAdd = this.shadowRoot.querySelector('.btnAdd');
         const btnClear = this.shadowRoot.querySelector('.btnClear');
-        const btnLogout = this.shadowRoot.querySelector('.btnLogout')
-        btnLogout.addEventListener('click', (e) => {
+        const btnLogout = this.shadowRoot.querySelector('.btnLogout');
+        const inputRadios = this.shadowRoot.querySelector('input[type="radio"]');
+        const idQuestion = this.getAttribute('idQuestion');
+        const local = localStorage.getItem('login')
+        if (local == 1) {
+            console.log(localStorage.getItem('login'))
+            getAnswerCorrect(idQuestion).then(data => {
+                Array.from(inputRadios).every(radio => {
+                    console.log(radio.value)
+                    if (radio.value == data) {
+                        radio.checked = true;
+                    }
+                })
+            }).catch(error => console.log(error));
+        }
+        btnLogout.addEventListener('click', () => {
             const check = confirm('Are you sure you want to log out?');
             if (check) {
                 localStorage.setItem('login', 0);
@@ -187,9 +207,14 @@ class Quiz extends HTMLElement {
                 this.style.display = 'none';
                 if (this == collectionQuiz[collectionQuiz.length - 1]) {
                     let check = confirm('This is last question. Do you want to end this game ?');
-                    if (check) {
+                    if (check && local == 0) {
                         this.close(collectionQuiz);
-                    } else {
+                    } else if (check && local == 1) {
+                        showSuccessToast("You logged out successfully!")
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 3000)
+                    } else if (!check) {
                         this.style.display = '';
                     }
                 }

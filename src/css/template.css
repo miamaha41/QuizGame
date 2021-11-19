@@ -18,7 +18,7 @@
   display: flex;
   margin: 10%;
   width: 80%;
-  height: 60%;
+  height: 70%;
   padding: 15px;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -49,30 +49,41 @@
 .page-wrapper .question-contain .question-count {
   font-size: 30px;
   margin: 10px;
+  color: red;
 }
 
 .page-wrapper .question-contain .question-tittle {
   font-size: 26px;
   margin-bottom: 0;
   width: 100%;
+  height: 20%;
   text-align: center;
   outline: none;
+  color: red;
+}
+
+@media screen and (max-width: 768px) {
+  .page-wrapper .question-contain .question-tittle {
+    width: 95%;
+    height: 80%;
+  }
 }
 
 .page-wrapper .question-contain textarea {
   border-style: hidden;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 400px) {
   .page-wrapper .question-contain textarea {
     width: 80%;
     font-size: 25px;
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 900px) {
   .page-wrapper .question-contain textarea {
     width: 80%;
+    height: 20%;
     font-size: 25px;
   }
 }
@@ -126,7 +137,7 @@
 
 .page-wrapper .question-contain .endgame {
   width: 80%;
-  margin-top: 0;
+  margin-top: 10px;
   margin-bottom: 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -160,13 +171,17 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  width: 60%;
+  margin: 0;
 }
 
-.page-wrapper .question-contain .endAdmin .btnClear {
-  margin-right: 315px;
+@media screen and (max-width: 768px) {
+  .page-wrapper .question-contain .endAdmin {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -176,21 +191,13 @@
   }
 }
 
+.page-wrapper .question-contain .endAdmin .btnLogout {
+  margin-left: 435px;
+}
+
 @media screen and (max-width: 768px) {
   .page-wrapper .question-contain .endAdmin .btnLogout {
-    width: 70%;
-    margin: 0;
-    margin-left: 50px;
-  }
-}
-
-.page-wrapper .question-contain .endAdmin .btnClose {
-  margin-right: 300px;
-}
-
-@media screen and (max-width: 768px) {
-  .page-wrapper .question-contain .endAdmin .btnClose {
-    width: 70%;
+    width: 60%;
     margin: 0;
     margin-left: 50px;
   }

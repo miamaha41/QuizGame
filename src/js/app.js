@@ -1,15 +1,14 @@
 import * as firebase from "./firebase.js";
 import Quiz from "./component.js";
 import { showErrorToast, showSuccessToast } from "./toast.js";
-// import Login from "./login.js"
+import Login from "./login.js"
 const btnStart = document.querySelector('.btnStart');
 const containStart = document.querySelector('.contain');
 const app = document.querySelector('.app');
 const btnAdmin = document.querySelector('.btnAdmin');
-class QuizGame {
-
-}
-btnStart.addEventListener('click', () => {
+class QuizGame {}
+btnStart.addEventListener('click', (e) => {
+    e.preventDefault();
     window.customElements.define("quiz-questions", Quiz);
     localStorage.setItem('login', 0);
     firebase.getQuiz();
@@ -31,21 +30,30 @@ btnAdmin.addEventListener('click', () => {
     </form>`
     app.appendChild(loginForm);
     const btnLogin = document.querySelector('.btnLogin');
-    btnLogin.addEventListener("click", (e) => {
-        e.preventDefault();
+
+    function checkLogin() {
         const username = document.querySelector('.username').value;
         const password = document.querySelector('.password').value;
-        firebase.getUser().then(data => {
+        return firebase.getUser().then(data => {
             if (data.username == username && data.password == password) {
                 localStorage.setItem('login', '1');
                 showSuccessToast("You logged in successfully!");
+                return true;
             } else {
                 showErrorToast("Username or password is incorrect!");
+                return false;
             }
         })
-        const border = document.querySelector('.border');
-        border.style.display = 'none';
-        window.customElements.define("quiz-questions", Quiz);
-        firebase.getQuiz();
+    }
+    btnLogin.addEventListener("click", (e) => {
+        e.preventDefault();
+        checkLogin().then(values => {
+            if (values) {
+                const border = document.querySelector('.border');
+                border.style.display = 'none';
+                window.customElements.define("quiz-questions", Quiz);
+                firebase.getQuiz();
+            }
+        })
     })
 })
