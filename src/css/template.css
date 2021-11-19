@@ -150,6 +150,12 @@
       justify-content: space-around;
 }
 
+@media screen and (max-width: 768px) {
+  .page-wrapper .question-contain .endgame {
+    width: 100%;
+  }
+}
+
 .page-wrapper .question-contain .update {
   width: 60%;
   margin-top: 10px;
