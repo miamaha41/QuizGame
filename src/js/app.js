@@ -1,7 +1,7 @@
 import * as firebase from "./firebase.js";
 import Quiz from "./component.js";
 import { showErrorToast, showSuccessToast } from "./toast.js";
-import Login from "./login.js"
+// import Login from "./login.js"
 const btnStart = document.querySelector('.btnStart');
 const containStart = document.querySelector('.contain');
 const app = document.querySelector('.app');
