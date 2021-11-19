@@ -58,11 +58,15 @@ export async function getAnswerCorrect(id) {
     return answerData;
 }
 export function getUser() {
+
     return db.collection("Account")
-        .get().then((doc) => {
-            if (doc.exists) {
-                return doc.data();
-            }
-            return {}
+        .get().then((snapshot) => {
+            let data = null;
+            snapshot.forEach((doc) => {
+                if (doc.exists) {
+                    data = doc.data();
+                }
+            })
+            return data;
         })
 }
