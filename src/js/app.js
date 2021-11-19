@@ -6,39 +6,14 @@ const btnStart = document.querySelector('.btnStart');
 const containStart = document.querySelector('.contain');
 const app = document.querySelector('.app');
 const btnAdmin = document.querySelector('.btnAdmin');
-// localStorage.setItem('countCorrectAnswer', 0);
 class QuizGame {
 
 }
 btnStart.addEventListener('click', () => {
-    // console.log(this);
-    // console.log(window.ShadowRoot);
     window.customElements.define("quiz-questions", Quiz);
     localStorage.setItem('login', 0);
-    // const btnDel = this.shadowRoot.querySelector('.btnDel');
-    // console.log(btnDel);
-    // const btnEdit = quiz.shadowRoot.querySelector('.btnEdit');
-    // const btnAdd = quiz.shadowRoot.querySelector('.btnAdd');
-    // const btnClear = quiz.shadowRoot.querySelector('.btnClear');
-    // const btnLogout = quiz.shadowRoot.querySelector('.btnLogout')
-    // const local = localStorage.getItem('login');
-    // console.log(local);
-    // if (local === 0) {
-    //     btnClear.disabled = true;
-    //     btnAdd.disabled = true;
-    //     btnEdit.disabled = true;
-    //     btnDel.disabled = true;
-    //     btnLogout.disabled = true;
-    // } else {
-    //     btnClear.disabled = false;
-    //     btnAdd.disabled = false;
-    //     btnEdit.disabled = false;
-    //     btnDel.disabled = false;
-    //     btnLogout.disabled = false;
-    // }
     firebase.getQuiz();
     containStart.style.display = 'none';
-
 })
 btnAdmin.addEventListener('click', () => {
     containStart.style.display = 'none';

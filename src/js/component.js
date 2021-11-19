@@ -219,14 +219,12 @@ class Quiz extends HTMLElement {
     checkAnswer() {
         const answerUser = this.shadowRoot.querySelector('input[type="radio"]:checked');
         const idQuestion = this.getAttribute('idQuestion');
-
         return getAnswerCorrect(idQuestion).then(data => {
             if (answerUser && data == answerUser.value) {
                 return true;
             } else {
                 return false;
             }
-
         }).catch(error => showErrorToast(error));
 
         // return getAnswerCorrect(idQuestion).then(data => {
