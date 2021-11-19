@@ -1,4 +1,4 @@
-import { getUser } from "./firebase.js"
+import { getUser, getQuiz } from "./firebase.js"
 class Login {
     contructor() {
         const app = document.querySelector('.app');
@@ -14,21 +14,20 @@ class Login {
             <button type="submit" class="btnLogin">Login</button>
         </form>`
         app.appendChild(loginForm);
-        const btnLogin = document.querySelector('.btnLogin');
         const username = document.querySelector('.username').value;
         const password = document.querySelector('.password').value;
-        console.log(username, password);
-        btnLogin.addEventListener("click", (e) => {
-            e.preventDefault();
-            firebase.getUser().then(data => {
-                if (data.username == username && data.password == password) {
-                    localStorage.setItem('login', 1);
-                    showSuccessToast("You logged in successfully!");
-                } else {
-                    showErrorToast("Username or password is incorrect!");
-                }
-            })
+        getUser().then(data => {
+            if (data.username == username && data.password == password) {
+                localStorage.setItem('login', '1');
+                showSuccessToast("You logged in successfully!");
+            } else {
+                showErrorToast("Username or password is incorrect!");
+            }
         })
+        const border = document.querySelector('.border');
+        border.style.display = 'none';
+        window.customElements.define("quiz-questions", Quiz);
+        getQuiz();
     }
 }
 export default Login;
