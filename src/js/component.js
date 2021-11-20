@@ -128,20 +128,22 @@ class Quiz extends HTMLElement {
         const btnAdd = this.shadowRoot.querySelector('.btnAdd');
         const btnClear = this.shadowRoot.querySelector('.btnClear');
         const btnLogout = this.shadowRoot.querySelector('.btnLogout');
-        const inputRadios = this.shadowRoot.querySelector('input[type="radio"]');
+        const inputRadios = this.shadowRoot.querySelectorAll('input[type="radio"]');
         const idQuestion = this.getAttribute('idQuestion');
         const local = localStorage.getItem('login')
-        if (local == 1) {
-            console.log(localStorage.getItem('login'))
-            getAnswerCorrect(idQuestion).then(data => {
-                Array.from(inputRadios).every(radio => {
-                    console.log(radio.value)
-                    if (radio.value == data) {
-                        radio.checked = true;
-                    }
-                })
-            }).catch(error => console.log(error));
-        }
+            // console.log(inputRadios)
+            // Array.from(inputRadios).forEach(radio => console.log(radio.value))
+            // if (local == 1) {
+            //     console.log(localStorage.getItem('login'))
+            //     getAnswerCorrect(idQuestion).then(data => {
+            //         Array.from(inputRadios).every(radio => {
+            //             console.log(radio.value)
+            //             if (radio.value == data) {
+            //                 radio.checked = true;
+            //             }
+            //         })
+            //     });
+            // }
         btnLogout.addEventListener('click', () => {
             const check = confirm('Are you sure you want to log out?');
             if (check) {
@@ -225,6 +227,7 @@ class Quiz extends HTMLElement {
             if (this.checkRadio()) {
                 if (this == collectionQuiz[0]) {
                     showErrorToast('This is first question. (No previous question)')
+                    return;
                 }
                 this.previousSibling.style.display = '';
             }
@@ -233,9 +236,8 @@ class Quiz extends HTMLElement {
             if (this.checkRadio()) {
                 const check = confirm('Are you sure you want to close this quiz game?');
                 if (check) {
-                    Array.from(collectionQuiz).forEach(question => question.remove());
                     this.close(collectionQuiz);
-
+                    Array.from(collectionQuiz).forEach(question => question.remove());
                 }
             }
         })
