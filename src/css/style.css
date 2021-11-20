@@ -122,6 +122,9 @@ body {
         font-size: 15px;
         margin-left: -5px;
     }
+    .home {
+        width: 100%
+    }
 }
 
 .title {
