@@ -110,17 +110,17 @@ body {
 
 @media screen and (max-width: 768px) {
     .border {
-        min-width: 200px;
-        margin-top: 25%;
-        margin-left: 25%;
+        min-width: 300px;
+        margin-top: 30%;
+        margin-left: 15%;
     }
     .login {
-        width: 80%;
+        width: 100%;
     }
     .title {
         width: 60%;
         font-size: 15px;
-        margin-left: -34px;
+        margin-left: -5px;
     }
 }
 
@@ -162,4 +162,19 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.btnLogin:active {
+    box-shadow: 2px 2px 0 rgba(100, 100, 100, 1);
+    transform: translate(3px, 3px);
+}
+
+.home {
+    margin: 10px;
+    cursor: pointer;
+}
+
+.home:active {
+    box-shadow: 2px 2px 0 rgba(100, 100, 100, 1);
+    transform: translate(3px, 3px);
 }

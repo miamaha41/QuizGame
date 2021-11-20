@@ -7,6 +7,21 @@ const containStart = document.querySelector('.contain');
 const app = document.querySelector('.app');
 const btnAdmin = document.querySelector('.btnAdmin');
 class QuizGame {}
+
+function checkLogin() {
+    const username = document.querySelector('.username').value;
+    const password = document.querySelector('.password').value;
+    return firebase.getUser().then(data => {
+        if (data.username == username && data.password == password) {
+            localStorage.setItem('login', '1');
+            showSuccessToast("You logged in successfully!");
+            return true;
+        } else {
+            showErrorToast("Username or password is incorrect!");
+            return false;
+        }
+    })
+}
 btnStart.addEventListener('click', (e) => {
     e.preventDefault();
     window.customElements.define("quiz-questions", Quiz);
@@ -27,24 +42,11 @@ btnAdmin.addEventListener('click', () => {
         <label for="password" id="password">Enter your password: </label>
         <input type="password" id="password" class="password" required>
         <button type="submit" class="btnLogin">Login</button>
+        <i class="fas fa-home home"> back to home</i>
     </form>`
     app.appendChild(loginForm);
     const btnLogin = document.querySelector('.btnLogin');
-
-    function checkLogin() {
-        const username = document.querySelector('.username').value;
-        const password = document.querySelector('.password').value;
-        return firebase.getUser().then(data => {
-            if (data.username == username && data.password == password) {
-                localStorage.setItem('login', '1');
-                showSuccessToast("You logged in successfully!");
-                return true;
-            } else {
-                showErrorToast("Username or password is incorrect!");
-                return false;
-            }
-        })
-    }
+    const btnHome = document.querySelector('.home');
     btnLogin.addEventListener("click", (e) => {
         e.preventDefault();
         checkLogin().then(values => {
@@ -55,5 +57,12 @@ btnAdmin.addEventListener('click', () => {
                 firebase.getQuiz();
             }
         })
+    })
+    btnHome.addEventListener("click", (e) => {
+        e.preventDefault();
+        loginForm.remove();
+        const home = document.querySelector('.contain');
+        setTimeout(() => home.style.display = '', 500)
+
     })
 })

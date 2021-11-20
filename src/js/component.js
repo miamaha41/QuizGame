@@ -146,6 +146,7 @@ class Quiz extends HTMLElement {
             const check = confirm('Are you sure you want to log out?');
             if (check) {
                 localStorage.setItem('login', 0);
+                Array.from(collectionQuiz).forEach(question => question.remove());
                 showSuccessToast("You logged out successfully!")
                 setTimeout(() => {
                     window.location.reload();
@@ -232,7 +233,9 @@ class Quiz extends HTMLElement {
             if (this.checkRadio()) {
                 const check = confirm('Are you sure you want to close this quiz game?');
                 if (check) {
+                    Array.from(collectionQuiz).forEach(question => question.remove());
                     this.close(collectionQuiz);
+
                 }
             }
         })
