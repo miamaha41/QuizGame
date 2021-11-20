@@ -195,6 +195,7 @@ class Quiz extends HTMLElement {
                 this.style.display = 'none';
                 if (this == collectionQuiz[collectionQuiz.length - 1]) {
                     let check = confirm('This is last question. Do you want to end this game ?');
+                    const local = localStorage.getItem('login');
                     if (check && local == 0) {
                         this.close(collectionQuiz);
                     } else if (check && local == 1) {
