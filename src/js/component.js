@@ -128,7 +128,6 @@ class Quiz extends HTMLElement {
         const btnAdd = this.shadowRoot.querySelector('.btnAdd');
         const btnClear = this.shadowRoot.querySelector('.btnClear');
         const btnLogout = this.shadowRoot.querySelector('.btnLogout');
-
         btnLogout.addEventListener('click', () => {
             const check = confirm('Are you sure you want to log out?');
             if (check) {
