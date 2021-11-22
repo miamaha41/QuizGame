@@ -157,6 +157,11 @@ class Quiz extends HTMLElement {
             this.clear();
         })
         btnAdd.addEventListener('click', () => {
+            const idQuestion = this.getAttribute('idQuestion');
+            if (idQuestion) {
+                showErrorToast("This question is already in database. Please click button clear to add new question!");
+                return;
+            }
             if (this.checkRadio() && this.checkAllInput()) {
                 let check = confirm('Are you sure you want to add new question!')
                 if (check) {
