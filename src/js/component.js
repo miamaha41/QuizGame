@@ -270,10 +270,12 @@ class Quiz extends HTMLElement {
     }
     disconnectedCallback() {}
     checkAnswer() {
-        const answerUser = this.shadowRoot.querySelector('input[type="radio"]:checked');
+        const inputRadios = this.shadowRoot.querySelectorAll('input[type="radio"]')
         const idQuestion = this.getAttribute('idQuestion');
+        const answers = JSON.parse(this.getAttribute('answers'));
+        const indexUser = Array.from(inputRadios).findIndex(radio => radio.checked)
         return getAnswerCorrect(idQuestion).then(data => {
-            if (answerUser && data == answerUser.value) {
+            if (indexUser >= 0 && data == answers[indexUser]) {
                 return true;
             } else {
                 return false;
