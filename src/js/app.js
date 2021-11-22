@@ -13,8 +13,6 @@ class QuizGame {
         this.btnStart = btnStart;
         this.containStart = containStart;
         this.btnAdmin = btnAdmin;
-        console.log(btnStart, btnAdmin);
-        console.log(btnStart, btnAdmin);
         this.setup();
     }
     setup() {

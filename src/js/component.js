@@ -2,7 +2,7 @@ import { showErrorToast, showSuccessToast } from './toast.js'
 import { getAnswerCorrect, updateQuestion, deleteQuestion, insertQuestion, getQuiz } from "./firebase.js"
 class Quiz extends HTMLElement {
     static get observedAttributes() {
-        return ['index', 'count', 'idQuestion', 'title', 'answers'];
+        return ['index', 'count', 'idQuestion', 'title', 'answers', 'new'];
     }
     constructor() {
         super();
@@ -67,6 +67,19 @@ class Quiz extends HTMLElement {
                         label.value = ans;
                         inputRadios[index].value = ans;
                     });
+                    break;
+                case "new":
+                    const inputAnswers = this.shadowRoot.querySelectorAll('input:not([type="radio"])');
+                    const txt = this.shadowRoot.querySelector('.question-tittle');
+                    const count = this.shadowRoot.querySelector('.question-count');
+                    console.log(count)
+                    count.innerText = "Creat a new question"
+                    txt.value = "";
+                    txt.setAttribute('placeholder', "Enter question's title");
+                    Array.from(inputAnswers).map((answer) => {
+                        answer.value = "";
+                        answer.setAttribute('placeholder', 'Enter an answer');
+                    })
                     break;
             }
         }
@@ -161,33 +174,42 @@ class Quiz extends HTMLElement {
             };
         })
         btnEdit.addEventListener('click', () => {
-            if (this.checkRadio() && this.checkAllInput()) {
-                let check = confirm('Are you sure you want to update this question!')
+            const idQuestion = this.getAttribute('idQuestion');
+            if (idQuestion) {
+                if (this.checkRadio() && this.checkAllInput()) {
+                    let check = confirm('Are you sure you want to update this question!')
+                    if (check) {
+                        const txt = this.getQuestionUer().txt;
+                        const correctAns = this.getQuestionUer().correctAns;
+                        const otherAnswers = this.getQuestionUer().otherAnswers;
+                        updateQuestion(idQuestion, txt, correctAns, otherAnswers).then(() => {
+                            showSuccessToast('You updated a question!');
+                        }).catch(error => console.log(error))
+                        return;
+                    }
+                    return;
+                }
+            } else {
+                showErrorToast("Can't edit, because this question isn't in database.")
+            }
+        })
+        btnDel.addEventListener('click', () => {
+            const idQuestion = this.getAttribute('idQuestion');
+            if (idQuestion) {
+                let check = confirm('Are you sure you want to delete this question! ')
                 if (check) {
-                    const idQuestion = this.getAttribute('idQuestion');
-                    const txt = this.getQuestionUer().txt;
-                    const correctAns = this.getQuestionUer().correctAns;
-                    const otherAnswers = this.getQuestionUer().otherAnswers;
-                    updateQuestion(idQuestion, txt, correctAns, otherAnswers).then(() => {
-                        showSuccessToast('You updated a question!');
-                    }).catch(error => console.log(error))
+                    deleteQuestion(idQuestion).then(() => {
+                        showSuccessToast('You deleted a question.')
+                        Array.from(collectionQuiz).forEach(question => question.remove());
+                        return getQuiz().then();
+                    }).catch(error => console.log(error));
                     return;
                 }
                 return;
-            };
-        })
-        btnDel.addEventListener('click', () => {
-            let check = confirm('Are you sure you want to delete this question! ')
-            const idQuestion = this.getAttribute('idQuestion');
-            if (check) {
-                deleteQuestion(idQuestion).then(() => {
-                    showSuccessToast('You deleted a question.')
-                    Array.from(collectionQuiz).forEach(question => question.remove());
-                    return getQuiz().then();
-                }).catch(error => console.log(error));
-                return;
+            } else {
+                showErrorToast("Can't delete, because this question isn't in database.")
             }
-            return;
+
         })
         btnNext.addEventListener("click", () => {
             if (this.checkRadio()) {
@@ -239,7 +261,6 @@ class Quiz extends HTMLElement {
                 index = answers.findIndex(answer => answer == data);
                 inputRadios[index].checked = true;
             }).catch(error => error);
-
         }
     }
     disconnectedCallback() {}
@@ -286,23 +307,16 @@ class Quiz extends HTMLElement {
             setTimeout(() => {
                 window.location.reload();
             }, 5000)
-
         });
-
     }
     clear() {
             let check = confirm('Are you sure you want to clear for adding a new question?');
             if (check) {
-                const inputAnswers = this.shadowRoot.querySelectorAll('input:not([type="radio"])');
-                const txt = this.shadowRoot.querySelector('.question-tittle');
-                const count = this.shadowRoot.querySelector('.question-count');
-                count.innerText = "Creat a new question"
-                txt.value = "";
-                txt.setAttribute('placeholder', "Enter question's title");
-                Array.from(inputAnswers).map((answer) => {
-                    answer.value = "";
-                    answer.setAttribute('placeholder', 'Enter an answer');
-                })
+                const quiz = document.createElement("quiz-questions");
+                const app = document.querySelector(".app")
+                this.insertAdjacentElement('afterend', quiz);
+                this.style.display = 'none';
+                quiz.setAttribute('new', 1);
                 return;
             }
             return;

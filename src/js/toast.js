@@ -39,9 +39,7 @@ export function toast({
         main.removeChild(main.children[0]);
     }
     addToast();
-
 }
-
 export function showSuccessToast(message) {
     toast({
         title: 'Successfully!',
