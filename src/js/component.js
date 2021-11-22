@@ -245,13 +245,13 @@ class Quiz extends HTMLElement {
             }
         })
         btnClose.addEventListener("click", () => {
-            if (this.checkRadio()) {
-                const check = confirm('Are you sure you want to close this quiz game?');
-                if (check) {
-                    this.close(collectionQuiz);
-                    Array.from(collectionQuiz).forEach(question => question.remove());
-                }
+            // if (this.checkRadio()) {
+            const check = confirm('Are you sure you want to close this quiz game?');
+            if (check) {
+                this.close(collectionQuiz);
+                Array.from(collectionQuiz).forEach(question => question.remove());
             }
+            // }
         })
     }
     attributeChangedCallback(name, oldValue, newValue) {
